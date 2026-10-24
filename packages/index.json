@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "packages": [
+    {
+      "name": "fastfetch",
+      "description": "System information from Chimera kernel and userspace interfaces",
+      "repository": "ChimeraSystem/chimera-utils",
+      "asset": "fastfetch-x86_64-chimera.tar.gz",
+      "architecture": "x86_64",
+      "abi": "chimera-1",
+      "license": "MIT",
+      "homepage": "https://github.com/fastfetch-cli/fastfetch",
+      "maintainer": "ChimeraSystem",
+      "dependencies": []
+    },
+    {
+      "name": "libcanvas",
+      "description": "Canvas client library",
+      "repository": "ChimeraSystem/canvas",
+      "asset": "libcanvas-x86_64-chimera.tar.gz",
+      "architecture": "x86_64",
+      "abi": "chimera-1",
+      "license": "BSD-2-Clause",
+      "homepage": "https://github.com/ChimeraSystem/canvas",
+      "maintainer": "ChimeraSystem",
+      "dependencies": []
+    },
+    {
+      "name": "pboard",
+      "description": "Session clipboard service",
+      "repository": "ChimeraSystem/canvas",
+      "asset": "pboard-x86_64-chimera.tar.gz",
+      "architecture": "x86_64",
+      "abi": "chimera-1",
+      "license": "BSD-2-Clause",
+      "homepage": "https://github.com/ChimeraSystem/canvas",
+      "maintainer": "ChimeraSystem",
+      "dependencies": ["libcanvas"]
+    },
+    {
+      "name": "menubar",
+      "description": "Desktop menu bar and application menus",
+      "repository": "ChimeraSystem/canvas",
+      "asset": "menubar-x86_64-chimera.tar.gz",
+      "architecture": "x86_64",
+      "abi": "chimera-1",
+      "license": "BSD-2-Clause",
+      "homepage": "https://github.com/ChimeraSystem/canvas",
+      "maintainer": "ChimeraSystem",
+      "dependencies": ["libcanvas"]
+    },
+    {
+      "name": "panel",
+      "description": "Desktop dock and application launcher",
+      "repository": "ChimeraSystem/canvas",
+      "asset": "panel-x86_64-chimera.tar.gz",
+      "architecture": "x86_64",
+      "abi": "chimera-1",
+      "license": "BSD-2-Clause",
+      "homepage": "https://github.com/ChimeraSystem/canvas",
+      "maintainer": "ChimeraSystem",
+      "dependencies": ["libcanvas"]
+    },
+    {
+      "name": "lumen",
+      "description": "Desktop search interface",
+      "repository": "ChimeraSystem/canvas",
+      "asset": "lumen-x86_64-chimera.tar.gz",
+      "architecture": "x86_64",
+      "abi": "chimera-1",
+      "license": "BSD-2-Clause",
+      "homepage": "https://github.com/ChimeraSystem/canvas",
+      "maintainer": "ChimeraSystem",
+      "dependencies": ["libcanvas"]
+    },
+    {
+      "name": "canvas",
+      "description": "Canvas window server and desktop session components",
+      "repository": "ChimeraSystem/canvas",
+      "asset": "canvas-x86_64-chimera.tar.gz",
+      "architecture": "x86_64",
+      "abi": "chimera-1",
+      "license": "BSD-2-Clause",
+      "homepage": "https://github.com/ChimeraSystem/canvas",
+      "maintainer": "ChimeraSystem",
+      "dependencies": ["libcanvas", "pboard", "menubar", "panel", "lumen"]
+    }
+  ]
+}

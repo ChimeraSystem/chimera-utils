@@ -12,10 +12,16 @@
 static void print_usage(const char *prog) {
     printf("Fuse Package Manager — Chimera Operating System\n");
     printf("Usage:\n");
+    printf("  %s install <package...> [-y]      Install latest releases and dependencies\n", prog);
+    printf("  %s plan <package...>              Show dependency and download plan\n", prog);
+    printf("  %s search [query]                 Search configured repositories\n", prog);
+    printf("  %s info <package>                 Show repository package metadata\n", prog);
+    printf("  %s update                         Check repository indexes\n", prog);
     printf("  %s info <manifest.plist>          Display package metadata and payload\n", prog);
     printf("  %s check-deps <manifest.plist>    Verify all dependencies are installed\n", prog);
-    printf("  %s verify <manifest.plist>        Verify payload files exist on disk\n", prog);
-    printf("  %s list                           List installed packages in %s\n", prog, RECEIPTS_DIR);
+    printf("  %s verify <package>               Verify installed package hashes\n", prog);
+    printf("  %s list                           List installed packages\n", prog);
+    printf("  %s manifest-list                  List legacy registered manifests\n", prog);
     printf("  %s register <manifest.plist>      Register package receipt into %s\n", prog, RECEIPTS_DIR);
 }
 
@@ -150,6 +156,23 @@ int main(int argc, char **argv) {
 
     const char *cmd = argv[1];
 
+    int local_manifest = argc > 2 && (strchr(argv[2], '/') || strstr(argv[2], ".plist"));
+    if (!strcmp(cmd, "install") || !strcmp(cmd, "plan") || !strcmp(cmd, "search") ||
+        !strcmp(cmd, "update") || !strcmp(cmd, "list") ||
+        ((!strcmp(cmd, "info") || !strcmp(cmd, "verify")) && !local_manifest)) {
+        char **args = calloc((size_t)argc + 5, sizeof(*args));
+        if (!args) return 1;
+        args[0] = "/usr/bin/python3";
+        args[1] = "-I";
+        args[2] = "-B";
+        args[3] = "/usr/libexec/fuse/main.py";
+        for (int i = 1; i < argc; i++) args[i + 3] = argv[i];
+        execv(args[0], args);
+        perror("fuse: cannot start installed Python runtime");
+        free(args);
+        return 1;
+    }
+
     if (strcmp(cmd, "info") == 0) {
         if (argc < 3) {
             fprintf(stderr, "fuse info: missing manifest path\n");
@@ -168,7 +191,7 @@ int main(int argc, char **argv) {
             return 1;
         }
         return cmd_verify(argv[2]);
-    } else if (strcmp(cmd, "list") == 0) {
+    } else if (strcmp(cmd, "manifest-list") == 0) {
         return cmd_list();
     } else if (strcmp(cmd, "register") == 0) {
         if (argc < 3) {

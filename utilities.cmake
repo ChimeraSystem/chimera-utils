@@ -10,6 +10,11 @@ add_executable(fuse ../coreutils/src/fuse.c)
 chimera_add_user_crt(fuse)
 target_link_libraries(fuse system_chimera)
 
+add_executable(fuse-fetch ../coreutils/src/fuse_fetch.c)
+chimera_add_user_crt(fuse-fetch)
+target_link_libraries(fuse-fetch libcurl ${CMAKE_SOURCE_DIR}/vendor/openssl/libssl.a
+    ${CMAKE_SOURCE_DIR}/vendor/openssl/libcrypto.a z system_chimera)
+
 add_executable(cp ../coreutils/src/cp/cp.c ../coreutils/src/cp/utils.c)
 target_include_directories(cp PRIVATE ../coreutils/src/cp)
 chimera_add_user_crt(cp)
